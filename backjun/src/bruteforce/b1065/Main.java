@@ -1,4 +1,4 @@
-package b1065;
+package bruteforce.b1065;
 
 import java.util.Scanner;
 

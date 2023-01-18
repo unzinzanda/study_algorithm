@@ -1,4 +1,4 @@
-package b4673;
+package bruteforce.b4673;
 
 public class Main {
 	
