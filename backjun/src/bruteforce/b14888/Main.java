@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-// 백준 14888 연산자 끼워넣기
+// 백준 14888 연산자끼워넣기
 public class Main {
 	
 	static int min = Integer.MAX_VALUE;
