@@ -2,7 +2,7 @@ package bruteforce.b1107;
 
 import java.util.Scanner;
 
-//¹éÁØ 1107 ¸®¸ğÄÁ
+//ï¿½ï¿½ï¿½ï¿½ 1107 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -10,7 +10,7 @@ public class Main {
 		String want = sc.next();
 		int M = sc.nextInt();
 		int fail[] = new int[M];
-		int canUse[] = new int[10 - M];
+		int canUse[] = new int[10 - M]; // boolean typeìœ¼ë¡œ ì‚¬ìš©ê°€ëŠ¥ìˆ«ì í‘œê¸°
 		
 		for(int i = 0;i < M;i++) fail[i] = sc.nextInt();
 		int idx = 0;
