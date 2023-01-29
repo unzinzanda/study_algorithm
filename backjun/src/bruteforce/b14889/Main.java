@@ -1,4 +1,5 @@
 package bruteforce.b14889;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +21,7 @@ public class Main {
 		for(int i = idx; i < N;i++) {
 			if(!visited[i]) {
 				visited[i] = true;
-				select(idx + 1, cnt + 1);
+				select(i + 1, cnt + 1);
 				visited[i] = false;
 			}
 		}
@@ -50,15 +51,14 @@ public class Main {
 		}
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException{
+	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(br.readLine());
 		stats = new int[N][N];
 		visited = new boolean[N];
 		
 		for(int i = 0; i < N;i++) {
-			st = new StringTokenizer(br.readLine());
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 			for(int j = 0; j < N;j++) {
 				stats[i][j] = Integer.parseInt(st.nextToken());
 			}
