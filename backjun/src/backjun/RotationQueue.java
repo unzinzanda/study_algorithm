@@ -30,13 +30,7 @@ public class RotationQueue {
 				if(iter.next() != Integer.valueOf(target)) tar_idx++;
 				else break;
 			}
-			int half;
-			if(deq.size() % 2 == 0) {
-				half = deq.size() / 2 - 1;
-			}
-			else {
-				half = deq.size() / 2;
-			}
+			int half = deq.size() / 2;
 			
 			int cnt = 0;
 			if(tar_idx <= half) {
