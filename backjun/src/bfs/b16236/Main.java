@@ -1,4 +1,4 @@
-package backjun.b16236;
+package bfs.b16236;
 
 import java.io.*;
 import java.util.*;
