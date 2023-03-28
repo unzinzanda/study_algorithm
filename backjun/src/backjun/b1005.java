@@ -21,10 +21,8 @@ public class b1005 {
 			int M = Integer.parseInt(str[1]);
 			
 			ArrayList<Integer> graph[] = new ArrayList[N + 1];	// 위상 정렬을 위한 그래프
-//			ArrayList<Integer> inverseGraph[] = new ArrayList[N + 1];	//목표 정점을 가리키는 정점을 찾기 위한 그래프
 			for(int i = 0; i <= N;i++) {
 				graph[i] = new ArrayList<>();
-//				inverseGraph[i] = new ArrayList<>();
 			}
 			int inDegree[] = new int[N + 1];
 			str = br.readLine().split(" ");
@@ -41,7 +39,6 @@ public class b1005 {
 				b = Integer.parseInt(str[1]);
 				
 				graph[a].add(b);
-//				inverseGraph[b].add(a);
 				inDegree[b]++;
 			}
 			
@@ -55,7 +52,6 @@ public class b1005 {
 				}
 			}
 			
-			int max = 0;
 			while(!q.isEmpty()) {
 				int cur = q.poll();
 				
