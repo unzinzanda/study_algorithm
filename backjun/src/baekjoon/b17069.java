@@ -1,12 +1,12 @@
-package backjun;
+package baekjoon;
 
 import java.io.*;
 
-// 백준 17070 파이프 옮기기 1
-public class b17070 {
+//백준 17069 파이프 옮기기 2
+public class b17069 {
 	static int N;
 	static int house[][];
-	static int dp[][][];
+	static long dp[][][];
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +19,7 @@ public class b17070 {
 			for(int j = 0;j < str.length;j++) house[i][j + 1] = Integer.parseInt(str[j]);
 		}
 		// 0 : 가로, 1 : 세로, 2 : 대각선
-		dp = new int[3][N + 1][N + 1];
+		dp = new long[3][N + 1][N + 1];
 		
 		dp[0][1][2] = 1;
 		
