@@ -8,6 +8,7 @@ import java.util.*;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		char T[] = br.readLine().toCharArray();
 		char P[] = br.readLine().toCharArray();
 		
@@ -38,6 +39,7 @@ public class Main {
 		}
 		
 		System.out.println(cnt);
-		for(int a : list) System.out.print(a + " ");
+		for(int a : list) sb.append(a).append(" ");
+		System.out.println(sb.toString());
 	}
 }
