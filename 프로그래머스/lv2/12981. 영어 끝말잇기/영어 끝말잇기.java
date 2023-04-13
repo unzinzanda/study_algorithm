@@ -15,7 +15,7 @@ class Solution {
                     last = words[i].charAt(words[i].length() - 1);
                     used.add(words[i]);
                 }
-                if(i % n == n - 1) turn++;
+                if(i % n == n - 1) turn++; // 인덱스가 0부터 시작하므로 한 라운드가 끝날 때 i % n = n - 1이 됨
             }
         }
         
