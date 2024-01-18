@@ -36,12 +36,15 @@ function solution(user_id, banned_id) {
                     correctSet.add(new Set(order));
                 }
                 else {
+                    // correctSet에 이미 있는 set이라면 true
                     let flag = false;
                     for(let set of correctSet) {
                         const newSet = new Set(order);
                         const preSize = newSet.size;
                         for(let element of set) newSet.add(element);
-                        
+
+                        // 검사해야 하는 제재 아이디 목록으로 set을 만들고 correctSet의 set의 원소를 모두 add 하였을 때 길이가 그대로 -> 모든 원소가 겹침
+                        // -> 이미 있는 set 따라서 flag = true 처리
                         if(preSize === newSet.size) {
                             flag = true;
                         }
