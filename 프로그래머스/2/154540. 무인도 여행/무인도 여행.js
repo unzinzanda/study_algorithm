@@ -28,6 +28,7 @@ function solution(maps) {
             }
         }
     }
-    
+
+    // sort() : 문자열이 아닌 숫자 기준으로 정렬하려면 sort((a, b) => a - b) 해야 함
     return answer.length === 0 ? [-1] : answer.sort((a, b) => a - b);
 }
