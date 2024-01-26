@@ -37,6 +37,7 @@ function solution(n, k) {
         } 
         
         let flag = true;
+        // 판별해야 하는 수의 제곱근까지 나눠보고 나눠지지 않았다면 소수!
         for(let j = 2;j <= Math.sqrt(res);j++) {
             if(res % j === 0) {
                 flag = false;
