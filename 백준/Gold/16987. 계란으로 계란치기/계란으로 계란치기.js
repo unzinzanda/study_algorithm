@@ -25,19 +25,23 @@ function hitEgg(index) {
         return;
     }
 
-    let flag = true;
-    for(let i = 0;i < totalEgg;i++) {
-        if(i == index) continue;
-        if(eggs[index][0] <= 0 || eggs[i][0] <= 0) continue;
-        
-        flag = false;
-        eggs[index][0] -= eggs[i][1];
-        eggs[i][0] -= eggs[index][1];
-        hitEgg(index + 1);
-        eggs[index][0] += eggs[i][1];
-        eggs[i][0] += eggs[index][1];
+    if(eggs[index][0] <= 0) hitEgg(index + 1);
+
+    else {
+        let flag = true;
+        for(let i = 0;i < totalEgg;i++) {
+            if(i == index) continue;
+            if(eggs[i][0] <= 0) continue;
+            
+            flag = false;
+            eggs[index][0] -= eggs[i][1];
+            eggs[i][0] -= eggs[index][1];
+            hitEgg(index + 1);
+            eggs[index][0] += eggs[i][1];
+            eggs[i][0] += eggs[index][1];
+        }
+        if(flag) hitEgg(index + 1);
     }
-    if(flag) hitEgg(index + 1);
 }
 
 hitEgg(0);
