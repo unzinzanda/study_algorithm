@@ -22,30 +22,29 @@ function transInput(arr) {
 
 for (let i = 0; i < M; i++) {
   const selfGrowth = transInput(input[i])
-  const growthArr = Array.from(Array(N), () => Array(N).fill(0))
 
   // 0행 0열 성장
   let idx = 0
   for (let j = N - 1; j >= 0; j--) {
-    answer[j][0] += selfGrowth[idx]
-    growthArr[j][0] = selfGrowth[idx++]
-  }
-  for (let j = 1; j < N; j++) {
-    answer[0][j] += selfGrowth[idx]
-    growthArr[0][j] = selfGrowth[idx++]
-  }
-
-  // 주변 탐색
-  for (let j = 1; j < N; j++) {
-    for (let k = 1; k < N; k++) {
-      growthArr[j][k] = Math.max(growthArr[j][k - 1], growthArr[j - 1][k - 1], growthArr[j - 1][k])
-      answer[j][k] += growthArr[j][k]
+    if (selfGrowth[idx] === 0) {
+      idx += 1
+      continue
     }
+    answer[j][0] += selfGrowth[idx++]
+  }
+  for (let j = 1; j < N; j++) {
+    if (selfGrowth[idx] === 0) {
+      idx += 1
+      continue
+    }
+    answer[0][j] += selfGrowth[idx++]
   }
 }
 
-for (let i = 2; i < N; i++) {
-  answer[i].splice(1, N, ...answer[1].slice(1))
+for (let i = 1; i < N; i++) {
+  for (let j = 1; j < N; j++) {
+    answer[i][j] = answer[0][j]
+  }
 }
 
 for (let i = 0; i < answer.length; i++) {
