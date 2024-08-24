@@ -1,7 +1,3 @@
-/**
- * 맨뒤부터 자신의 앞이 자신보다 크면 swap 호출
- */
-
 const fs = require('fs')
 const filePath = process.platform === 'linux' ? 'dev/stdin' : './input.txt'
 let input = fs
