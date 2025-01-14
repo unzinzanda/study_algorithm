@@ -1,85 +1,74 @@
-class Heap {
+class MinHeap {
     constructor() {
-        this.heap = [null]; // 첫 원소는 사용 X
+        this.heap = [];
     }
     
     size() {
-        return this.heap.length - 1;
-    }
-    
-    getMin() {
-        return this.heap[1] ? this.heap[1] : null;
-    }
-    
-    swap(a, b) {
-        return [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+        return this.heap.length;
     }
     
     push(value) {
-        this.heap.push(value); // 일단 끝에 삽입
-        let curIdx = this.heap.length - 1;
-        let parIdx = (curIdx / 2) >> 0; // 부모 노드
-        
-        // 부모 노드의 값이 자녀 노드보다 작아질 때까지 반복
-        while(curIdx > 1 && this.heap[parIdx] > this.heap[curIdx]) {
-            // 구조 분해 할당을 이용한 swap
-            this.swap(parIdx, curIdx)
-            
-            curIdx = parIdx;
-            parIdx = (curIdx / 2) >> 0;
-        }
+        this.heap.push(value);
+        if(this.size() > 1) {
+            let curIndex = this.size() - 1;
+            while(curIndex > 0) {
+                const parentIndex = Math.floor((curIndex - 1) / 2);
+                if(this.heap[parentIndex] > this.heap[curIndex]) {
+                    [this.heap[curIndex], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[curIndex]];
+                    curIndex = parentIndex;
+                } else break;
+            }
+        } 
     }
     
     pop() {
-        const min = this.heap[1];
-        if(this.heap.length <= 2) this.heap = [null];
-        // 배열의 가장 마지막 원소를 top에 두고 top-down
-        else this.heap[1] = this.heap.pop();
+        // 힙에 값이 없을 경우, -1 리턴
+        if(this.size() < 1) return -1;
         
-        let curIdx = 1;
-        let leftIdx = curIdx * 2;
-        let rightIdx = (curIdx * 2) + 1;
-        
-        if(!this.heap[leftIdx]) return min;
-        if(!this.heap[rightIdx]) {
-            if(this.heap[leftIdx] < this.heap[curIdx]) {
-                this.swap(leftIdx, curIdx);
+        const minValue = this.heap[0];
+        if(this.size() === 1) this.heap = [];
+        else {
+            this.heap[0] = this.heap[this.size() - 1];
+            this.heap.pop();
+            let curIndex = 0;
+            while(curIndex < this.size()) {
+                const leftChildIndex = 2 * curIndex + 1;
+                const rightChildIndex = 2 * curIndex + 2;
+                let targetChildIndex = leftChildIndex;
+                // 왼오 중 더 작은 값 찾기
+                if(this.heap[rightChildIndex] && this.heap[leftChildIndex] > this.heap[rightChildIndex]) targetChildIndex = rightChildIndex;
+                
+                if(this.heap[curIndex] > this.heap[targetChildIndex]) {
+                    [this.heap[curIndex], this.heap[targetChildIndex]] = [this.heap[targetChildIndex], this.heap[curIndex]];
+                    curIndex = targetChildIndex;
+                } else break;
             }
-            return min;
         }
         
-        // 양쪽 자식이 모두 있는 경우
-        while(this.heap[leftIdx] < this.heap[curIdx] || this.heap[rightIdx] < this.heap[curIdx]) {
-            // 오 왼 중 더 작은 값의 인덱스를 저장
-            const minIdx = this.heap[leftIdx] > this.heap[rightIdx] ? rightIdx : leftIdx;
-            this.swap(minIdx, curIdx);
-            curIdx = minIdx;
-            leftIdx = curIdx * 2;
-            rightIdx = curIdx * 2 + 1;
-        }
-        
-        return min;
+        return minValue;
+    }
+    
+    peek() {
+        if(this.size() < 1) return -1;
+        else return this.heap[0];
     }
 }
 
 function solution(scoville, K) {
-    var answer = 0;
+    let answer = 0;
     
-    const heap = new Heap();
+    const minHeap = new MinHeap();
     
-    for(let i = 0;i < scoville.length;i++) {
-        heap.push(scoville[i] + 1);
-    }
+    scoville.forEach(value => minHeap.push(value));
     
-    while(heap.getMin() < K + 1) {
-        if(heap.size() < 2) break;
-        answer++;
-        const first = heap.pop() - 1;
-        const second = heap.pop() - 1;
+    while(minHeap.size() >= 2 && minHeap.peek() < K) {
+        const a = minHeap.pop();
+        const b = minHeap.pop();
         
-        heap.push(first + (second * 2) + 1);
+        minHeap.push(a + (2 * b));
+        answer += 1;
     }
     
-    if(heap.size() < 2 && heap.getMin() < K + 1) return -1;
+    if(minHeap.peek() < K) return -1;
     else return answer;
 }
