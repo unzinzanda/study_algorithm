@@ -1,72 +1,70 @@
 class MaxHeap {
     constructor() {
-        this.heap = [null];
-    }
-    swap(a, b) {
-        [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
-    }
-    heap_push(value) {
-        this.heap.push(value);
-        let currentIndex = this.heap.length - 1;
-        let parentIndex = Math.floor(currentIndex / 2);
-        while(parentIndex !== 0 && this.heap[parentIndex] < value) {
-            this.swap(parentIndex, currentIndex);
-            currentIndex = parentIndex;
-            parentIndex = Math.floor(currentIndex / 2);
-        }
+        this.heap = [null]
     }
     
-    heap_pop() {
-        if(this.heap.length === 2) return this.heap.pop();
+    size() {
+        return this.heap.length - 1
+    }
+    
+    push(value) {
+        this.heap.push(value)
+        let current = this.size()
         
-        let returnValue = this.heap[1];
-        this.heap[1] = this.heap.pop();
-        let currentIndex = 1;
-        let leftIndex = 2;
-        let rightIndex = 3;
-        while(this.heap[currentIndex] < this.heap[leftIndex] || this.heap[currentIndex] < this.heap[rightIndex]) {
-            if(this.heap[leftIndex] < this.heap[rightIndex]) {
-                this.swap(currentIndex, rightIndex);
-                currentIndex = rightIndex;
-            } else {
-                this.swap(currentIndex, leftIndex);
-                currentIndex = leftIndex;
-            }
-            leftIndex = currentIndex * 2;
-            rightIndex = leftIndex + 1;
+        // value가 꼭대기에 올라오게 되면 종료
+        while(current !== 1) {
+            const parent = Math.floor(current / 2)
+            if(this.heap[parent] < this.heap[current]) {
+                [this.heap[parent], this.heap[current]] = [this.heap[current], this.heap[parent]]
+                current = parent
+            } else break
         }
-        return returnValue;
     }
     
-    heap_return() {
-        return this.heap;
-    }
-    
-    heap_size() {
-        return this.heap.length - 1;
+    pop() {
+        const value = this.heap[1]
+        
+        if(this.heap.length === 2) this.heap = [null]
+        else {
+            // 가장 끝 값을 맨 위로(top-down)
+            this.heap[1] = this.heap.pop()
+            let current = 1
+            while(current < this.size()) {
+                const leftChild = 2 * current
+                const rightChild = 2 * current + 1
+                
+                let targetChild = leftChild
+                if(this.heap[rightChild] && this.heap[rightChild] > this.heap[leftChild])   targetChild = rightChild
+                
+                if(this.heap[current] < this.heap[targetChild]) {
+                    [this.heap[current], this.heap[targetChild]] = [this.heap[targetChild], this.heap[current]]
+                    
+                    current = targetChild
+                } else break
+            }
+        }
+        
+        return value
     }
 }
 
 function solution(n, works) {
-    var answer = 0;
+    const maxHeap = new MaxHeap()
+    works.forEach(el => maxHeap.push(el))
     
-    const pq = new MaxHeap();
+    while(n > 0 && maxHeap.size() > 0) {
+        const maxValue = maxHeap.pop()
+        if(maxValue !== 0) {
+            maxHeap.push(maxValue - 1)
+        }
+        n -= 1
+    }
     
-    works.map((work) => {
-        pq.heap_push(work);
+    let answer = 0
+    
+    maxHeap.heap.forEach(el => {
+        answer += el * el
     })
-    
-    for(let i = 0;i < n;i++) {
-        if(pq.heap_size() === 0) break;
-        
-        let temp = pq.heap_pop();
-        if(temp !== 1) pq.heap_push(temp - 1);
-    }
-    
-    const size = pq.heap_size();
-    for(let i = 1;i <= size;i++) {
-        answer += Math.pow(pq.heap_pop(), 2);
-    }
     
     return answer;
 }
