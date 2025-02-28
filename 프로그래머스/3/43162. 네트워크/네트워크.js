@@ -1,25 +1,20 @@
-/*
-    방문 안된 노드부터 dfs
-*/
 function solution(n, computers) {
-    var answer = 0;
-    const visited = new Array(n).fill(false);
+    let answer = 0;
+    const visited = Array(n).fill(false)
     
-    function dfs(node) {
+    const dfs = (node) => {
+        visited[node] = true
+        
         for(let i = 0;i < n;i++) {
-            if(node !== i && computers[node][i] === 1 && !visited[i]) {
-                visited[i] = true;
-                dfs(i);
-            }
+            if(!visited[i] && computers[node][i] === 1) dfs(i)
         }
     }
     
     for(let i = 0;i < n;i++) {
-        if(!visited[i]) {
-            visited[i] = true;
-            dfs(i);
-            answer++;
-        }
+        if(visited[i]) continue
+        
+        dfs(i)
+        answer += 1
     }
     
     return answer;
