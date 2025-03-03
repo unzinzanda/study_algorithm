@@ -13,13 +13,13 @@ const input = fs
 
 const [N] = input.shift()
 
-let answer = 0
-let minCost = input[1][0]
+let answer = BigInt(0)
+let minCost = BigInt(input[1][0])
 
 for (let i = 0; i < N - 1; i++) {
-  if (minCost > input[1][i]) minCost = input[1][i]
+  if (minCost > input[1][i]) minCost = BigInt(input[1][i])
 
-  answer += input[0][i] * minCost
+  answer += BigInt(input[0][i]) * minCost
 }
 
-console.log(answer)
+console.log(answer.toString())
