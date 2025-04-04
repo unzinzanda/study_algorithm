@@ -24,11 +24,16 @@ for (let i = 0; i < 26; i++) {
   }
 }
 
+let answer = ''
 input.forEach((el) => {
   const ascii = el[0].charCodeAt() - 'a'.charCodeAt()
-  console.log(
-    Number(el[1]) === 0
-      ? arr[ascii][Number(el[2])]
-      : arr[ascii][Number(el[2])] - arr[ascii][Number(el[1]) - 1],
-  )
+  if (Number(el[1]) === 0) answer += arr[ascii][Number(el[2])] + '\n'
+  else answer += arr[ascii][Number(el[2])] - arr[ascii][Number(el[1]) - 1] + '\n'
+  // console.log(
+  //   Number(el[1]) === 0
+  //     ? arr[ascii][Number(el[2])]
+  //     : arr[ascii][Number(el[2])] - arr[ascii][Number(el[1]) - 1],
+  // )
 })
+
+console.log(answer)
